@@ -1,29 +1,32 @@
 version: "3"
 services:
   sonarqube:
-    image: sonarqube:its
+    image: sonarqube:lts
     ports:
-      -9000:9000
+      - 9000:9000
     networks:
-      -mynetwork
+      - mynetwork
     volumes:
-      -sonarQube_data:/opt/SonarQube/data
-      -SonarQube_extensions:/opt/SonarQube/extensions
-      -SonarQube_logs:/opt/sonarqube/logs
+      - sonarQube_data:/opt/sonarQube/data
+      - sonarQube_extensions:/opt/sonarQube/extensions
+      - sonarQube_logs:/opt/sonarQube/logs
   jenkins:
-    image: jenkins/jenkins:its
+    image: jenkins/jenkins:lts
     privileged: true
     user: root
     ports:
-      -8081:8080
-      -50000:50000
+      - 8080:8080
+      - 50000:50000
     networks:
-      -mynetwork
+      - mynetwork
     volumes:
-      -jenkins_home:/var/jenkins_home
-      -/var/run/docker.sock:/var/run/docker.sock
-      -/usr/local/bin/docker:/usr/local/bin/docker
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
 volumes:
-  jenkins_home:
+   sonarQube_data:
+   sonarQube_extensions:
+   sonarQube_logs:
+   jenkins_home:
 networks:
   mynetwork:
